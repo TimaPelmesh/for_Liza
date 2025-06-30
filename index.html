@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маршрут для Елизаветы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
+            padding: 15px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 25px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            color: #212529;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        
+        .route-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .location-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .location-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .location-image {
+            height: 200px;
+            overflow: hidden;
+            background: #e9ecef;
+        }
+        
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .location-content {
+            padding: 20px;
+        }
+        
+        .location-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .location-number {
+            background: #212529;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 1rem;
+            margin-right: 12px;
+        }
+        
+        .location-name {
+            font-size: 1.4rem;
+            color: #212529;
+            font-weight: 600;
+        }
+        
+        .location-description {
+            color: #495057;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .location-features {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 10px;
+            border-left: 3px solid #212529;
+        }
+        
+        .location-features h3 {
+            color: #212529;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .location-features h3 i {
+            margin-right: 8px;
+            color: #495057;
+        }
+        
+        .location-features ul {
+            padding-left: 20px;
+        }
+        
+        .location-features li {
+            margin-bottom: 6px;
+            color: #495057;
+            font-size: 0.95rem;
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+        
+        /* Анимация при прокрутке */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .location-card {
+            animation: fadeIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .location-card:nth-child(1) { animation-delay: 0.1s; }
+        .location-card:nth-child(2) { animation-delay: 0.2s; }
+        .location-card:nth-child(3) { animation-delay: 0.3s; }
+        .location-card:nth-child(4) { animation-delay: 0.4s; }
+        .location-card:nth-child(5) { animation-delay: 0.5s; }
+        .location-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Мобильная адаптация */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .location-name {
+                font-size: 1.2rem;
+            }
+            
+            .location-image {
+                height: 180px;
+            }
+            
+            .location-content {
+                padding: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 20px 0;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .location-name {
+                font-size: 1.1rem;
+            }
+            
+            .location-image {
+                height: 160px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Маршрут для Елизаветы</h1>
+            <p class="subtitle">Прогулка по центральным районам Москвы</p>
+        </header>
+        
+        <div class="route-container">
+            <!-- Александровский сад -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Александровский сад">
+                </div>
+                <div class="location-content">
+                    <div class="location-title">
+                        <div class="location-number">1</div>
+                        <h2 class="location-name">Александровский сад</h2>
+                    </div>
+                    <p class="location-description">Парк у стен Московского Кремля, созданный в 1820-х годах. Общая площадь - около 10 гектаров.</p>
+                    <div class="location-features">
+                        <h3><i class="fas fa-map-marker-alt"></i> Объекты:</h3>
+                        <ul>
+                            <li>Могила Неизвестного Солдата с Вечным огнём</li>
+                            <li>Итальянский грот "Руины"</li>
+                            <li>Фонтаны и исторические памятники</li>
+                            <li>Вход в метро "Александровский сад"</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Памятник князю Владимиру -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="https://media.foma.ru/2015/09/PamKnVladimir.jpg" alt="Памятник князю Владимиру">
+                </div>
+                <div class="location-content">
+                    <div class="location-title">
+                        <div class="location-number">2</div>
+                        <h2 class="location-name">Памятник князю Владимиру</h2>
+                    </div>
+                    <p class="location-description">Установлен в 2016 году на Боровицкой площади. Высота памятника - 17.5 метров, скульптор - Салават Щербаков.</p>
+                    <div class="location-features">
+                        <h3><i class="fas fa-info-circle"></i> Детали:</h3>
+                        <ul>
+                            <li>Расположен рядом с Боровицкой башней Кремля</li>
+                            <li>Памятник крестителю Руси</li>
+                            <li>Панорамный вид на Кремль</li>
+                            <li>Открыт после общественного обсуждения</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Памятник Александру I -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="https://i.pinimg.com/736x/e9/a7/c8/e9a7c800e179d35485309fb37b73f647.jpg" alt="Памятник Александру I">
+                </div>
+                <div class="location-content">
+                    <div class="location-title">
+                        <div class="location-number">3</div>
+                        <h2 class="location-name">Памятник Александру I</h2>
+                    </div>
+                    <p class="location-description">Открыт в 2014 году в Александровском саду. Скульптор - Салават Щербаков, архитектор - Игорь Воскресенский.</p>
+                    <div class="location-features">
+                        <h3><i class="fas fa-landmark"></i> Особенности:</h3>
+                        <ul>
+                            <li>Высота памятника - 7.5 метров</li>
+                            <li>Изображает императора в парадном мундире</li>
+                            <li>Барельефы с изображением Бородинской битвы</li>
+                            <li>Расположен рядом с Кутафьей башней</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Московский Кремль -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="https://images.unsplash.com/photo-1513326738677-b964603b136d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Московский Кремль">
+                </div>
+                <div class="location-content">
+                    <div class="location-title">
+                        <div class="location-number">4</div>
+                        <h2 class="location-name">Московский Кремль</h2>
+                    </div>
+                    <p class="location-description">Исторический укреплённый комплекс в центре Москвы. Площадь - 27.7 гектаров, длина стен - 2235 метров.</p>
+                    <div class="location-features">
+                        <h3><i class="fas fa-map-marked-alt"></i> Основные объекты:</h3>
+                        <ul>
+                            <li>Соборная площадь с храмами XV-XVI веков</li>
+                            <li>Царь-пушка и Царь-колокол</li>
+                            <li>Государственный Кремлёвский дворец</li>
+                            <li>Красная площадь (внешний осмотр)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Китай-город - Зарядье -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Zaryadye25.jpg/1200px-Zaryadye25.jpg" alt="Парк Зарядье">
+                </div>
+                <div class="location-content">
+                    <div class="location-title">
+                        <div class="location-number">5</div>
+                        <h2 class="location-name">Китай-город - Зарядье</h2>
+                    </div>
+                    <p class="location-description">Исторический район и современный парк площадью 13 гектаров, открытый в 2017 году.</p>
+                    <div class="location-features">
+                        <h3><i class="fas fa-tree"></i> Зоны парка:</h3>
+                        <ul>
+                            <li>Парящий мост - смотровая площадка над рекой</li>
+                            <li>Ледяная пещера с температурой -4°C</li>
+                            <li>Медиацентр с интерактивными экспозициями</li>
+                            <li>4 ландшафтные зоны: север, степь, лес, заливные луга</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Art Space -->
+            <div class="location-card">
+                <div class="location-image">
+                    <img src="https://images.unsplash.com/photo-1501084817091-a4f3d1d19e07?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Арт-пространство">
+                </div>
+                <div class="location-content">
+                    <div class="location-title">
+                        <div class="location-number">6</div>
+                        <h2 class="location-name">Art Space</h2>
+                    </div>
+                    <p class="location-description">Выставочные площадки современного искусства в центре Москвы.</p>
+                    <div class="location-features">
+                        <h3><i class="fas fa-palette"></i> Варианты:</h3>
+                        <ul>
+                            <li>ЦСИ Винзавод - бывшая фабрика, 20 галерей</li>
+                            <li>Центр современного искусства МАРС</li>
+                            <li>Галерея Триумф на Ильинке</li>
+                            <li>ARTEUM в Гостином дворе</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            <p>Для самой ахуенной девушки в мире</p>
+
+        </div>
+    </div>
+
+    <script>
+        // Простой скрипт для плавного появления элементов
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.location-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.animation = 'fadeIn 0.6s forwards';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
